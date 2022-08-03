@@ -1,0 +1,45 @@
+<div class="offset-md-3">
+  <form class="form-atividade" [formGroup]="formulario">
+    <div class="col-md-8">
+      <div class="form-floating" style="margin-top: 10px">
+        <textarea
+          id="atividade"
+          class="form-control"
+          style="height: 100px"
+          formControlName="atividade"
+          [class.is-invalid]="
+          formulario.get('atividade').invalid && formulario.get('atividade').touched
+        "
+        ></textarea>
+        <label for="atividade">Descrição da atividade</label>
+        <div
+          *ngIf="
+            formulario.get('atividade').invalid &&
+            formulario.get('atividade').touched
+          "
+        >
+          <span class="is-invalid text-danger"
+            >Descrição da atividade é obrigatório.</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="mb-2"></div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      (click)="onSubmit('atividade')"
+    >
+      Salvar
+    </button>
+
+    <button
+      style="margin-left: 5px"
+      type="reset"
+      class="btn btn-secondary"
+      (click)="onCancel()"
+    >
+      Cancelar
+    </button>
+  </form>
+</div>

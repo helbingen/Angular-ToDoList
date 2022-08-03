@@ -1,7 +1,17 @@
+import { AtividadesFormComponent } from './atividades/atividades-form/atividades-form';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './conta/login/login.component';
+import { ListarAtividadesComponent } from './atividades/listar-atividades/listar-atividades.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+
+  { path: 'login', component: LoginComponent },
+  { path: 'atividades', component: ListarAtividadesComponent },
+  { path: 'novo', component: AtividadesFormComponent },
+  { path: 'edit/:id', component: AtividadesFormComponent }
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

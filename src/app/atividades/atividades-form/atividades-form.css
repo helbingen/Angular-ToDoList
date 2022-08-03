@@ -1,0 +1,11 @@
+form {
+  margin: 10px;
+  margin-top: 30px;
+}
+.row {
+--bs-gutter-x: 0rem;
+}
+
+span{
+  font-size: 12px;
+}

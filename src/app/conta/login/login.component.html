@@ -1,0 +1,46 @@
+<div class="offset-md-3">
+  <form class="form-login" [formGroup]="formulario">
+    <div class="col-md-6">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="nome@email.com"
+        formControlName="email"
+        [class.is-invalid]="
+          formulario.get('email').invalid && formulario.get('email').touched
+        "
+      />
+      <div
+        *ngIf="
+          formulario.get('email').invalid && formulario.get('email').touched
+        "
+      >
+        <span class="is-invalid text-danger"> E-mail inválido</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="senha" class="form-label">Senha</label>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="senha"
+        [class.is-invalid]="
+          formulario.get('senha').invalid && formulario.get('senha').touched
+        "
+      />
+      <div
+        *ngIf="
+          formulario.get('senha').invalid && formulario.get('senha').touched
+        "
+      >
+        <span class="is-invalid text-danger"> Senha obrigatória</span>
+      </div>
+    </div>
+    <div class="mb-2"></div>
+    <button type="submit" class="btn btn-primary" (click)="Login()">
+      Login
+    </button>
+  </form>
+</div>
