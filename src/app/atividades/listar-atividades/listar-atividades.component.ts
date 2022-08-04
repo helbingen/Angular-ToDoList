@@ -1,3 +1,4 @@
+import { AlertModalService } from './../shared/alert-modal.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,11 +15,13 @@ import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component
 export class ListarAtividadesComponent implements OnInit {
   bsModalRef!: BsModalRef;
   atividades$!: Observable<Atividade[]>;
+  atividade: Object = {};
   atividadeSelecionada!: Atividade;
 
   constructor(
     private service: TodolistService,
-    private modalService: BsModalService,
+    private alertService: AlertModalService,
+    // private modalService: BsModalService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -37,9 +40,16 @@ export class ListarAtividadesComponent implements OnInit {
   }
 
   handleError() {
-    this.bsModalRef = this.modalService.show(AlertModalComponent);
-    this.bsModalRef.content.type = 'danger';
-    this.bsModalRef.content.message =
-      'Erro ao carregar atividades. Tente novamente mais tarde.';
+    this.alertService.showAlertDanger(
+      'Erro ao carregar atividades. Tente novamente mais tarde.'
+    );
+  }
+
+  onConcluir(id: number) {
+    // let dataatual = Date.now();
+    // let datacorrente = new Date(dataatual);
+    // console.log(datacorrente);
+    let body = { dataConclusao: new Date(0), concluido: true };
+    this.atividade = this.service.update(id, body).subscribe();
   }
 }

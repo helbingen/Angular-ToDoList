@@ -50,7 +50,10 @@
                 Remover
               </button>
               {{ "" }}
-              <button class="btn btn-outline-success mb-1 btn-sm">
+              <button
+                class="btn btn-outline-success mb-1 btn-sm"
+                (click)="onConcluir(atividade.id)"
+              >
                 Concluir
               </button>
             </span>

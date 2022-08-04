@@ -34,9 +34,15 @@ export class TodolistService {
 
   update(id: number, atividade: AtividadeUpdate) {
     return this.http
-      .post<Atividade>(`http://localhost:3001/ToDoList/${id}`, atividade)
+      .put<Atividade>(`http://localhost:3001/ToDoList/${id}`, atividade)
       .pipe(take(1));
   }
+
+  // updateConclusion(id: number, atividade: AtividadeUpdate) {
+  //   return this.http
+  //     .put<Atividade>(`http://localhost:3001/ToDoList/${id}`, atividade)
+  //     .pipe(take(1));
+  // }
 
   remove(id: number) {
     return this.http

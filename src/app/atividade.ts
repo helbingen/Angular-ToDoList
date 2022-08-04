@@ -12,7 +12,7 @@ export interface AtividadeCreate {
 }
 
 export interface AtividadeUpdate {
-  descricao: string;
+  // descricao: string;
   concluido: boolean;
   dataConclusao: Date;
 }
