@@ -1,3 +1,4 @@
+import { CriarLoginComponent } from './conta/criar-login/criar-login.component';
 import { ListarAtividadesAbertasComponent } from './atividades/listar-atividades-abertas/listar-atividades-abertas.component';
 import { AtividadesFormComponent } from './atividades/atividades-form/atividades-form';
 import { NgModule } from '@angular/core';
@@ -7,6 +8,7 @@ import { ListarAtividadesComponent } from './atividades/listar-atividades/listar
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'login/criar', component: CriarLoginComponent },
   { path: 'atividades', component: ListarAtividadesComponent },
   { path: 'atividades/abertas', component: ListarAtividadesAbertasComponent },
   { path: 'novo', component: AtividadesFormComponent },
