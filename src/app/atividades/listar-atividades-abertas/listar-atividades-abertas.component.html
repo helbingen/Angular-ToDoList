@@ -2,12 +2,10 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" routerLink="abertas">Atividades em aberto</a>
+        <a class="nav-link active" routerLink="abertas">Atividades em aberto</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" routerLink="concluidas"
-          >Atividades Concluídas</a
-        >
+        <a class="nav-link" routerLink="../">Atividades Concluídas</a>
       </li>
     </ul>
   </div>
@@ -31,7 +29,7 @@
         </tr>
       </thead>
       <tbody *ngFor="let atividade of atividades$ | async">
-        <tr *ngIf="atividade.concluido === true">
+        <tr *ngIf="atividade.concluido === false">
           <!-- <div *ngIf="atividade.concluido === true"></div> -->
           <td>{{ atividade.id }}</td>
           <td>{{ atividade.descricao }}</td>

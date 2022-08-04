@@ -1,18 +1,17 @@
-import { AlertModalService } from './../shared/alert-modal.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { Atividade } from '../../atividade';
+import { Atividade } from 'src/app/atividade';
+import { AlertModalService } from '../shared/alert-modal.service';
 import { TodolistService } from '../shared/todolist.service';
-import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-listar-atividades',
-  templateUrl: './listar-atividades.component.html',
-  styleUrls: ['./listar-atividades.component.css'],
+  selector: 'app-listar-atividades-abertas',
+  templateUrl: './listar-atividades-abertas.component.html',
+  styleUrls: ['./listar-atividades-abertas.component.css'],
 })
-export class ListarAtividadesComponent implements OnInit {
+export class ListarAtividadesAbertasComponent implements OnInit {
   deleteModalRef!: BsModalRef;
   atividades$!: Observable<Atividade[]>;
   atividade: Object = {};
@@ -29,7 +28,7 @@ export class ListarAtividadesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.atividades$ = this.service.listarConclusao();
+    this.atividades$ = this.service.listar();
   }
 
   onDelete(atividade: Atividade) {

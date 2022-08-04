@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TodolistService } from '../shared/todolist.service';
 import { Location } from '@angular/common';
-import { map, Observable, switchMap } from 'rxjs';
 import { Atividade } from 'src/app/atividade';
 
 @Component({
@@ -15,9 +14,9 @@ import { Atividade } from 'src/app/atividade';
 export class AtividadesFormComponent implements OnInit {
   formulario!: FormGroup | any;
   submitted = false;
-  // atividades$!: Observable<Atividade[]>;
   atividade: Object = {};
   atividadeSelecionada!: Atividade;
+  public id = undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,36 +24,15 @@ export class AtividadesFormComponent implements OnInit {
     private alertService: AlertModalService,
     private location: Location,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.route.params.subscribe((params) => (this.id = params['id']));
+    // console.log(this.id);
+  }
 
   ngOnInit(): void {
-    // this.route.params.subscribe(
-    //   (params: any) => {
-    //     const id = params.id;
-    //     const atividade = this.service.listarId(id);
-    //     atividade.subscribe(atividade => {
-    //       this.updateForm(atividade);
-    //     })
-    //   }
-    // )
-
-    this.route.params
-      .pipe(
-        map((params: any) => params.id),
-        switchMap((id) => this.service.listarId(id))
-      )
-      .subscribe((atividade) => this.updateForm(atividade));
-
     this.formulario = this.formBuilder.group({
       id: [null],
       atividade: [null, Validators.required],
-    });
-  }
-
-  updateForm(atividade: any) {
-    this.formulario.patchValue({
-      id: atividade.id,
-      nome: atividade.nome,
     });
   }
 
@@ -75,16 +53,59 @@ export class AtividadesFormComponent implements OnInit {
   }
 
   onSubmit(campo: string) {
-    this.submitted = true;
     let descricao = document.getElementById(campo) as HTMLTextAreaElement;
-    let body = {
-      descricao: descricao.value,
-      concluido: false,
-      dataConclusao: new Date(0),
-    };
-    if (this.formulario.valid) {
-      this.atividade = this.service.create(body).subscribe();
-      this.alertService.showAlertSuccess('Curso criado com sucesso!');
+    if (this.id !== undefined) {
+      let body = {
+        descricao: descricao.value,
+      };
+      this.atividade = this.service.update2(this.id, body).subscribe(
+        (success) => {
+          this.alertService.showAlertSuccess('Atividade editada com sucesso!');
+          this.location.back();
+        },
+        (error) =>
+          this.alertService.showAlertDanger(
+            'Erro ao editar atividade, tente novamente!'
+          )
+      );
+    } else {
+      let body = {
+        descricao: descricao.value,
+        concluido: false,
+        dataConclusao: new Date(0),
+      };
+      if (this.formulario.valid) {
+        this.atividade = this.service.create(body).subscribe(
+          (success) => {
+            this.alertService.showAlertSuccess('Atividade criada com sucesso!');
+            this.location.back();
+          },
+          (error) =>
+            this.alertService.showAlertDanger(
+              'Erro ao editar atividade, tente novamente!'
+            )
+        );
+      }
     }
+    this.submitted = true;
+
+    // let descricao = document.getElementById(campo) as HTMLTextAreaElement;
+    // let body = {
+    //   descricao: descricao.value,
+    //   concluido: false,
+    //   dataConclusao: new Date(0),
+    // };
+    // if (this.formulario.valid) {
+    //   this.atividade = this.service.create(body).subscribe(
+    //     (success) => {
+    //       this.alertService.showAlertSuccess('Curso criado com sucesso!');
+    //       this.location.back();
+    //     },
+    //     (error) =>
+    //       this.alertService.showAlertDanger(
+    //         'Erro ao criar curso, tente novamente!'
+    //       )
+    //   );
+    // }
   }
 }

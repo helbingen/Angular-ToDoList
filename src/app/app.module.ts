@@ -1,3 +1,4 @@
+import { ListarAtividadesAbertasComponent } from './atividades/listar-atividades-abertas/listar-atividades-abertas.component';
 import { AlertModalComponent } from './atividades/shared/alert-modal/alert-modal.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +25,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ListarAtividadesComponent,
     CriarLoginComponent,
     AuthenticationComponent,
+    ListarAtividadesAbertasComponent,
   ],
   imports: [
     BrowserModule,
